@@ -52,17 +52,15 @@ const invoiceSchema = new mongoose.Schema(
       enum: ["pending", "paid", "failed"],
       default: "paid",
     },
+    paymentId: { type: String },
     deliveryStatus: {
       type: String,
-      enum: ["ordered", "processing", "shipped", "delivered", "cancelled"],
+      enum: ["ordered", "processing", "shipped", "out_for_delivery", "delivered", "cancelled"],
       default: "ordered",
     },
     estimatedDelivery: { type: Date },
   },
   { timestamps: true }
 );
-
-// ✅ Invoice number is generated in the route (index.js) before saving.
-// No pre-save hook needed — it was causing "next is not a function" error.
 
 module.exports = mongoose.model("Invoice", invoiceSchema);
